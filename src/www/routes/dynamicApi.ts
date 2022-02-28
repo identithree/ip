@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import PrettyResponse from "../../backend/pretty/createRes.js";
-import { isIP } from 'is-ip'
-import geoip from "geoip-lite";
+import { ipVersion, isIP } from 'is-ip'
+import geoip from 'geoip-lite'
 
 const router = Router()
 
@@ -54,6 +54,17 @@ router.get('/:ip/timezone', (req, res) => {
   res.send({
     timezone: g?.timezone,
     currentTime: new Date().toLocaleString('en-US', { timeZone: g?.timezone })
+  })
+})
+
+// Version Response
+// Gets the current version of the IP (IPv4 or IPv6)
+router.get('/:ip/version', (req, res) => {
+  let i = req.params.ip
+  res.setHeader('content-type', 'text/json')
+  res.send({
+    version: ipVersion(i),
+    humanReadable: `IPv${ipVersion(i)}`
   })
 })
 
