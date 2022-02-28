@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import PrettyResponse from "../../backend/pretty/createRes.js";
 import { isIP } from 'is-ip'
-import { lookup } from "geoip-lite";
+import geoip from "geoip-lite";
 
 const router = Router()
 
@@ -25,7 +25,7 @@ router.get('/:ip/pretty', (req, res) => {
 // Location Response
 // Responds with JSON data containing the location of the IP
 router.get('/:ip/location', (req, res) => {
-  let g = lookup(req.params.ip)
+  let g = geoip.lookup(req.params.ip)
 
   if (!isIP(req.params.ip)) {
     res.status(400)
@@ -44,6 +44,17 @@ router.get('/:ip/location', (req, res) => {
       longitude: g?.ll[1]
     })
   }
+})
+
+// Timezone Response
+// Gets the timezoone and current date and time for a location derived from an IP.
+router.get('/:ip/timezone', (req, res) => {
+  let g = geoip.lookup(req.params.ip)
+  res.setHeader('content-type', 'text/json')
+  res.send({
+    timezone: g?.timezone,
+    currentTime: new Date().toLocaleString('en-US', { timeZone: g?.timezone })
+  })
 })
 
 export default router
