@@ -532,6 +532,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ip-regex@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "ip-regex@npm:5.0.0::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Fip-regex%2F-%2Fip-regex-5.0.0.tgz"
+  checksum: 4098b2df89c015f1484a5946e733ec126af8c1828719d90e09f04af23ce487e1a852670e4d3f51b0dc6dfbaf7d8bfab23fd7893ca60e69833da99b7b1ee3623b
+  languageName: node
+  linkType: hard
+
 "ip@workspace:.":
   version: 0.0.0-use.local
   resolution: "ip@workspace:."
@@ -546,6 +553,7 @@ __metadata:
     debug: ~2.6.9
     express: ~4.16.1
     geoip-lite: ^1.4.3
+    is-ip: ^4.0.0
     morgan: ~1.9.1
     typescript: ^4.5.5
   languageName: unknown
@@ -555,6 +563,15 @@ __metadata:
   version: 1.9.1
   resolution: "ipaddr.js@npm:1.9.1::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Fipaddr.js%2F-%2Fipaddr.js-1.9.1.tgz"
   checksum: f88d3825981486f5a1942414c8d77dd6674dd71c065adcfa46f578d677edcb99fda25af42675cb59db492fdf427b34a5abfcde3982da11a8fd83a500b41cfe77
+  languageName: node
+  linkType: hard
+
+"is-ip@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "is-ip@npm:4.0.0::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Fis-ip%2F-%2Fis-ip-4.0.0.tgz"
+  dependencies:
+    ip-regex: ^5.0.0
+  checksum: 6bbf3b83b18b02e6cf6b26d16c0d2de38bf5b2f5597de2b902894a83764ae6879f9acd1baec653b47b18a67a975c0cade779f3485e96a6b2cd09a26407d82991
   languageName: node
   linkType: hard
 

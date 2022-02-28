@@ -11,6 +11,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "geoip-lite": "^1.4.3",
+    "is-ip": "^4.0.0",
     "morgan": "~1.9.1"
   },
   "packageManager": "yarn@3.2.0",
