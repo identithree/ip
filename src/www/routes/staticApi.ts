@@ -46,7 +46,7 @@ router.get('/location', (req, res) => {
 })
 
 // Timezone Response
-// Gets the timezoone and current date and time for a location derived from an IP.
+// Gets the timezone and current date and time for a location derived from an IP.
 router.get('/timezone', (req, res) => {
   let g = geoip.lookup(req.ip)
   res.setHeader('content-type', 'text/json')
