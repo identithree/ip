@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
-    "dayjs": "^1.10.7",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "geoip-lite": "^1.4.3",

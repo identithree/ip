@@ -297,13 +297,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.10.7":
-  version: 1.10.7
-  resolution: "dayjs@npm:1.10.7::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Fdayjs%2F-%2Fdayjs-1.10.7.tgz"
-  checksum: a0a4ca95abaa03d0702161dc2c35d16121188e342f5052b9c61cdf784dab68af766f477c04f87f71c6af666fd4d13db9b9853b87265850d6093b7b04e1bb1cd7
-  languageName: node
-  linkType: hard
-
 "debug@npm:2.6.9, debug@npm:~2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Fdebug%2F-%2Fdebug-2.6.9.tgz"
@@ -550,7 +543,6 @@ __metadata:
     "@types/morgan": ^1.9.3
     "@types/node": ^17.0.21
     cookie-parser: ~1.4.4
-    dayjs: ^1.10.7
     debug: ~2.6.9
     express: ~4.16.1
     geoip-lite: ^1.4.3
