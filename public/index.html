@@ -8,46 +8,22 @@
   <body>
     <div id="main">
       <h1>Quinn's IP Checker</h1>
+      <!-- Basic API Interaction -->
       <p>Your IP is <strong id="ip"></strong> and you live in <strong id="loc"></strong></p>
-    </div>
-    <!-- Start of API documentation -->
-    <div id="api">
-      <h2>API</h2>
-      <p>This service has an API that can be interacted with from the <code>/api</code> route.
-      All endpoints, with the exception of <code>/api/just-ip</code>, can have an IP preceding them.
-      Before we talk about the dynamic API, we will talk about the static API. The difference is one
-      (the dynamic API) specifies an IP for the backend to use, while the other (the static API) just
-      uses your IP that you use to connect to the server with.</p>
 
       <!-- VPN/Proxy Disclaimer -->
       <p><strong>DISCLAIMER:</strong> Obviously the results of the frontend and the API will be skewed
-      if you are connecting through a proxy server or VPN. These will mask your real IP with another.
-      For more accurate results, disable these services.</p>
-      <div id="static-api">
-        <h3>Static API</h3>
-        <!-- Pretty API Endpoint -->
-        <div id="static-pretty-api">
-          <strong><code>/api/pretty</code></strong> <a href="/api/pretty">(link)</a>
-          <p>The "pretty" API endpoint is the main endpoint that you get if you run cURL on this site.
-          The server will redirect all default cURL requests to this endpoint for maximum usability.</p>
-          <strong>GET arguments:</strong>
-          <ul>
-            <li>
-              emoji<br />
-              <div><ul>
-                  <li>Type: boolean</li>
-                  <li>Default: true</li>
-              </ul></div>
-            </li>
-          </ul>
-        </div>
-        <!-- Just IP API Endpoint -->
-        <div id="static-justip-api">
-          <strong><code>/api/just-ip</code></strong> <a href="/api/just-ip">(link)</a>
-          <p>The "just-ip" API endpoint just returns the IP that the server has received in the request.</p>
-        </div>
-      </div>
+        if you are connecting through a proxy server or VPN. These will mask your real IP with another.
+        For more accurate results, disable these services.</p>
     </div>
+
+    <!-- Start of API section -->
+    <div id="api">
+      <h2>API</h2>
+      <p>This service has an API that can be interacted with from the <code>/api</code> route. Documentation
+      can be found at <a href="https://gitlab.com/Identithree/ip/-/wikis/home">the project repository</a>.</p>
+    </div>
+
     <!-- Data fetcher script -->
     <script src="/js/getData.js" async defer></script>
   </body>
