@@ -2,7 +2,7 @@ import { Router } from 'express'
 import PrettyResponse from '../../backend/pretty/createRes.js'
 import geoip from 'geoip-lite'
 import { ipVersion } from 'is-ip'
-import resolveIP from "../../backend/resolveIP";
+import resolveIP from "../../backend/resolveIP.js";
 
 const router = Router()
 
