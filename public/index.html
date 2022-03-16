@@ -1,13 +1,30 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>IP Checker</title>
+    <!-- Simple.css -->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  </head>
+  <body>
+    <div id="main">
+      <h1>Quinn's IP Checker</h1>
+      <!-- Basic API Interaction -->
+      <p>Your IP is <strong id="ip"></strong> and you live in <strong id="loc"></strong></p>
 
-<head>
-  <title>Express</title>
-  <link rel="stylesheet" href="/stylesheets/style.css">
-</head>
+      <!-- VPN/Proxy Disclaimer -->
+      <p><strong>DISCLAIMER:</strong> Obviously the results of the frontend and the API will be skewed
+        if you are connecting through a proxy server or VPN. These will mask your real IP with another.
+        For more accurate results, disable these services.</p>
+    </div>
 
-<body>
-  <h1>Express</h1>
-  <p>Welcome to Express</p>
-</body>
+    <!-- Start of API section -->
+    <div id="api">
+      <h2>API</h2>
+      <p>This service has an API that can be interacted with from the <code>/api</code> route. Documentation
+      can be found at <a href="https://gitlab.com/Identithree/ip/-/wikis/home">the project repository</a>.</p>
+    </div>
 
+    <!-- Data fetcher script -->
+    <script src="/js/getData.js" async defer></script>
+  </body>
 </html>
