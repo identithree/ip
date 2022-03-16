@@ -2,6 +2,7 @@ import { Router } from 'express'
 import PrettyResponse from '../../backend/pretty/createRes.js'
 import geoip from 'geoip-lite'
 import { ipVersion } from 'is-ip'
+import resolveIP from "../../backend/resolveIP.js";
 
 const router = Router()
 
@@ -16,9 +17,9 @@ router.get('/', (req, res) => {
 router.get('/pretty', (req, res) => {
   res.setHeader('content-type', 'text/plain')
   if (req.query.emoji === "false") {
-    res.send(new PrettyResponse(req.ip, true).getGeneratedString())
+    res.send(new PrettyResponse(resolveIP(req), true).getGeneratedString())
   } else {
-    res.send(new PrettyResponse(req.ip).getGeneratedString())
+    res.send(new PrettyResponse(resolveIP(req)).getGeneratedString())
   }
 })
 
@@ -26,13 +27,13 @@ router.get('/pretty', (req, res) => {
 // Self-explanatory
 router.get('/just-ip', (req, res) => {
   res.setHeader('content-type', 'text/plain')
-  res.send(req.ip)
+  res.send(resolveIP(req))
 })
 
 // Location Response
 // Responds with JSON data containing the location of the IP
 router.get('/location', (req, res) => {
-  let g = geoip.lookup(req.ip)
+  let g = geoip.lookup(resolveIP(req))
   res.setHeader('content-type', 'text/json')
   res.send({
     municipality: {
@@ -49,7 +50,7 @@ router.get('/location', (req, res) => {
 // Timezone Response
 // Gets the timezone and current date and time for a location derived from an IP.
 router.get('/timezone', (req, res) => {
-  let g = geoip.lookup(req.ip)
+  let g = geoip.lookup(resolveIP(req))
   res.setHeader('content-type', 'text/json')
   res.send({
     timezone: g?.timezone,
@@ -60,7 +61,7 @@ router.get('/timezone', (req, res) => {
 // Version Response
 // Gets the current version of the IP (IPv4 or IPv6)
 router.get('/version', (req, res) => {
-  let i = req.ip
+  let i = resolveIP(req)
   res.setHeader('content-type', 'text/json')
   res.send({
     version: ipVersion(i),
