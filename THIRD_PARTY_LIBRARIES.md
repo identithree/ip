@@ -39,7 +39,7 @@ THE SOFTWARE.
 ```
 
 ## Apache License
-The following libraries use the MIT License:
+The following libraries use the Apache License:
 
  - geoip-lite
 
