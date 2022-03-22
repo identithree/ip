@@ -1,6 +1,6 @@
-import { Router } from 'express'
-import PrettyResponse from "../../backend/pretty/createRes.js";
-import { ipVersion, isIP } from 'is-ip'
+import {Router} from 'express'
+import PrettyResponse from "../../../../backend/pretty/createRes.js";
+import {ipVersion, isIP} from 'is-ip'
 import geoip from 'geoip-lite'
 
 const router = Router()
