@@ -1,8 +1,9 @@
-import { Router } from 'express'
-import PrettyResponse from '../../backend/pretty/createRes.js'
+import {Router} from 'express'
+import PrettyResponse from '../../../../backend/pretty/createRes.js'
 import geoip from 'geoip-lite'
-import { ipVersion } from 'is-ip'
-import resolveIP from "../../backend/resolveIP.js";
+import {ipVersion} from 'is-ip'
+import resolveIP from "../../../../backend/resolveIP.js";
+import {UAParser} from 'ua-parser-js'
 
 const router = Router()
 
@@ -66,6 +67,24 @@ router.get('/version', (req, res) => {
   res.send({
     version: ipVersion(i),
     humanReadable: `IPv${ipVersion(i)}`
+  })
+})
+
+router.get('/useragent', (req, res) => {
+  let agent = new UAParser(req.headers['user-agent'])
+
+  res.setHeader('content-type', 'text/json')
+  res.send({
+    humanReadable: {
+      browser: `${agent.getBrowser().name} ${agent.getBrowser().version}`,
+      engine: `${agent.getEngine().name} ${agent.getEngine().version}`,
+      os: `${agent.getOS().name} ${agent.getOS().version}`,
+      type: `${agent.getDevice().type}`,
+      model: `${agent.getDevice().vendor} ${agent.getDevice().model}`,
+      cpu: `${agent.getCPU().architecture}`
+    },
+    parserOutput: agent.getResult(),
+    ua: req.headers['user-agent']
   })
 })
 

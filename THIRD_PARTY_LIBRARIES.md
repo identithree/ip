@@ -7,6 +7,7 @@ This project uses the following third party libraries:
  - [express](https://www.npmjs.com/package/express)
  - [morgan](https://www.npmjs.com/package/morgan)
  - [geoip-lite](https://www.npmjs.com/package/geoip-lite)
+ - [ua-parser-js](https://www.npmjs.com/package/ua-parser-js)
 
 ## MIT License
 The following libraries use the MIT License:
@@ -16,6 +17,7 @@ The following libraries use the MIT License:
  - debug
  - express
  - morgan
+ - ua-parser-js
 
 The fulltext license is
 ```txt
