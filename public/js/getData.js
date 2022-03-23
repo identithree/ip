@@ -1,13 +1,13 @@
 (async () => {
   try {
     // Get IP
-    const ipResponse = await fetch('/api/just-ip', {
+    const ipResponse = await fetch('/api/v1/just-ip', {
       method: 'get'
     })
     document.getElementById('ip').innerHTML = await ipResponse.text()
 
     // Get location data
-    const locResponse = await fetch('/api/location', {
+    const locResponse = await fetch('/api/v1/location', {
       method: 'get'
     })
     document.getElementById('loc').innerHTML = JSON.parse(await locResponse.text()).municipality.humanReadable
