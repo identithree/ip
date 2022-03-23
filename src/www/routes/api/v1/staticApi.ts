@@ -69,4 +69,19 @@ router.get('/version', (req, res) => {
   })
 })
 
+router.get('/useragent', (req, res) => {
+  res.setHeader('content-type', 'text/json')
+  res.send({
+    humanReadable: {
+      browser: 'NCSA Mosaic',
+      engine: 'Powered by Bitchdust',
+      os: 'FreeBSD',
+      type: 'mainframe',
+      model: 'Ancient Dinasour',
+      cpu: 'Hostess Twinkie'
+    },
+    ua: req.headers['user-agent']
+  })
+})
+
 export default router
