@@ -1,3 +1,7 @@
+// Quinn's IP Checker - src/www/routes/api/v1/staticApi.ts
+// Written by Quinn Lane - https://quinnlane.dev
+
+// Import necessary libraries
 import {Router} from 'express'
 import PrettyResponse from '../../../../backend/pretty/createRes.js'
 import geoip from 'geoip-lite'
@@ -5,10 +9,16 @@ import {ipVersion} from 'is-ip'
 import resolveIP from "../../../../backend/resolveIP.js";
 import {UAParser} from 'ua-parser-js'
 
+// Create express router instance
 const router = Router()
 
+// ----------------
+//  API Routes
+// ----------------
+
 // Root Redirection
-// Will redirect people to the main site if they
+// Will redirect people to the main site if they access the root api link
+// Find more information on the wiki at
 router.get('/', (req, res) => {
   res.redirect("../")
 })
@@ -70,6 +80,8 @@ router.get('/version', (req, res) => {
   })
 })
 
+// User Agent Response
+// Gets the current user agent, parses it, and returns a pretty response.
 router.get('/useragent', (req, res) => {
   let agent = new UAParser(req.headers['user-agent'])
 
@@ -88,4 +100,5 @@ router.get('/useragent', (req, res) => {
   })
 })
 
+// Export for use in main file
 export default router

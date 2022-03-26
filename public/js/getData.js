@@ -1,3 +1,4 @@
+// Define asynchronous function to get data from API
 (async () => {
   try {
     // Get IP
@@ -18,6 +19,7 @@
     })
     document.getElementById('browser').innerHTML = JSON.parse(await browserResponse.text()).humanReadable.browser
   } catch (e) {
+    // Return error if cannot connect to API for whatever reason. Should not happen under normal circumstances.
     document.getElementById("ip_str").innerHTML = "<strong>Error:</strong> For whatever reason, we could not make connection to API!"
   }
 })();
