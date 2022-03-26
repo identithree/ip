@@ -31,5 +31,11 @@ app.use('/', indexRouter) // Public frontend (e.g. https://ip.id3.rest/)
 app.use('/api/v1', staticApiRouter) // Static API
 app.use('/api/v1', dynamicApiRouter) // Dynamic API
 
+// API Root Redirection
+// Will send users who visit the root directory to the API documentation
+app.get('/api', (req, res) => {
+  res.redirect('https://gitlab.com/Identithree/ip/-/wikis/api') // Sends users to a hidden wiki page that is just a landing to go to the static or dynamic API pages.
+})
+
 // Export for use in server.ts
 export default app
