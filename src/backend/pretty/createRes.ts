@@ -3,7 +3,7 @@
 
 // Import necessary libraries
 import geoip from 'geoip-lite'
-import { ipVersion } from "is-ip";
+import {ipVersion} from "is-ip";
 
 // Define and export main pretty response class
 export default class PrettyResponse {
@@ -39,27 +39,37 @@ export default class PrettyResponse {
     // GeoIP Lookup specified IP
     let g = geoip.lookup(i)
 
+    // Create temporary objects for info lines
+    let ip = []
+    let version = []
+    let location = []
+    let timezone = []
+
     // Start the string
     s.push('')
     s.push('================================')
     s.push('')
     s.push(`Viewing IP information for ${i}`)
     s.push('')
-    // Send IP-specific info
-    if (this.noEmoji) {
-      // Send without emoji
-      s.push(`IP: ${i}`)
-      s.push(`Version: IPv${ipVersion(i)?.toString()}`)
-      s.push(`Location: ${g?.city}, ${g?.region}, ${g?.country} (${g?.ll.join(', ')})`)
-      s.push(`Timezone: ${g?.timezone} (${new Date().toLocaleString('en-US', { timeZone: g?.timezone })})`)
-      s.push('')
-    } else {
-      // Send with emoji
-      s.push(`🔗 IP: ${i}`)
-      s.push(`📦 Version: IPv${ipVersion(i)?.toString()}`)
-      s.push(`🌎 Location: ${g?.city}, ${g?.region}, ${g?.country} (${g?.ll.join(', ')})`)
-      s.push(`🕖 Timezone: ${g?.timezone} (${new Date().toLocaleString('en-US', { timeZone: g?.timezone })})`)
-      s.push('')
+
+    // Add emoji if the user specifies.
+    if (!this.noEmoji) {
+      ip.push('🔗')
+      version.push('📦')
+      location.push('🌎')
+      timezone.push('🕖')
     }
+
+    // Add information to arrays
+    ip.push(`IP: ${i}`)
+    version.push(`Version: IPv${ipVersion(i)?.toString()}`)
+    location.push(`Location: ${g?.city}, ${g?.region}, ${g?.country} (${g?.ll.join(', ')})`)
+    timezone.push(`Timezone: ${g?.timezone} (${new Date().toLocaleString('en-US', { timeZone: g?.timezone })})`)
+
+    // Push completed strings to main string array
+    s.push(ip.join(' '))
+    s.push(version.join(' '))
+    s.push(location.join(' '))
+    s.push(timezone.join(' '))
   }
 }
