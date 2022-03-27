@@ -95,8 +95,7 @@ router.get('/useragent', (req, res) => {
       model: `${agent.getDevice().vendor} ${agent.getDevice().model}`,
       cpu: `${agent.getCPU().architecture}`
     },
-    parserOutput: agent.getResult(),
-    ua: req.headers['user-agent']
+    parserOutput: agent.getResult()
   })
 })
 
