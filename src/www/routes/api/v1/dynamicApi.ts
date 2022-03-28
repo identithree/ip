@@ -1,4 +1,4 @@
-// Quinn's IP Checker - src/www/routes/api/v1/staticApi.ts
+// Quinn's IP Checker - src/www/routes/api/v1/dynamicApi.ts
 // Written by Quinn Lane - https://quinnlane.dev
 
 // Import necessary functions
@@ -24,12 +24,15 @@ router.get('/:ip/pretty', (req, res) => {
     res.setHeader('content-type', 'text/plain')
     res.send('The IP provided is not valid! Please check the IP and try again')
   } else {
-    // Send proper response containing requested data
     res.setHeader('content-type', 'text/plain')
+    // Create new PrettyResponse
+    let p = new PrettyResponse(req.params.ip, false)
+
     if (req.query.emoji === "false") {
-      res.send(new PrettyResponse(req.params.ip, true).getGeneratedString())
+      p.useEmoji(false) // Disable emoji
+      res.send(p.getGeneratedString())
     } else {
-      res.send(new PrettyResponse(req.params.ip).getGeneratedString())
+      res.send(p.getGeneratedString())
     }
   }
 })

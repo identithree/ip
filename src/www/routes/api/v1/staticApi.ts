@@ -27,10 +27,15 @@ router.get('/', (req, res) => {
 // Will make the response look good
 router.get('/pretty', (req, res) => {
   res.setHeader('content-type', 'text/plain')
+  // Generate new PrettyResponse
+  let p = new PrettyResponse(resolveIP(req), true)
+  p.setUA(req.headers['user-agent']) // Set user agent
+
   if (req.query.emoji === "false") {
-    res.send(new PrettyResponse(resolveIP(req), true).getGeneratedString())
+    p.useEmoji(false) // Disable emoji
+    res.send(p.getGeneratedString())
   } else {
-    res.send(new PrettyResponse(resolveIP(req)).getGeneratedString())
+    res.send(p.getGeneratedString())
   }
 })
 
