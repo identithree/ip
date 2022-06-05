@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "yarn node out/www/server.js"
+    "start": "yarn node out/www/server.js",
+    "build": "yarn tsc --build --verbose"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
