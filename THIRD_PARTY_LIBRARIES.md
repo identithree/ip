@@ -1,13 +1,13 @@
 # Third Party Libraries
 This project uses the following third party libraries:
 
- - [is-ip](https://www.npmjs.com/package/is-ip)
- - [cookie-parser](https://www.npmjs.com/package/cookie-parser)
- - [debug](https://www.npmjs.com/package/debug)
- - [express](https://www.npmjs.com/package/express)
- - [morgan](https://www.npmjs.com/package/morgan)
- - [geoip-lite](https://www.npmjs.com/package/geoip-lite)
- - [ua-parser-js](https://www.npmjs.com/package/ua-parser-js)
+ - [is-ip](https://yarn.pm/is-ip)
+ - [cookie-parser](https://yarn.pm/cookie-parser)
+ - [debug](https://yarn.pm/debug)
+ - [express](https://yarn.pm/express)
+ - [morgan](https://yarn.pm/morgan)
+ - [@maxmind/geoip2-node](https://yarn.pm/@maxmind/geoip2-node)
+ - [ua-parser-js](https://yarn.pm/ua-parser-js)
 
 ## MIT License
 The following libraries use the MIT License:
@@ -43,7 +43,7 @@ THE SOFTWARE.
 ## Apache License
 The following libraries use the Apache License:
 
- - geoip-lite
+ - @maxmind/geoip2-node
 
 The fulltext license is
 ```txt
