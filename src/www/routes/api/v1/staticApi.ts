@@ -4,13 +4,15 @@
 // Import necessary libraries
 import {Router} from 'express'
 import PrettyResponse from '../../../../backend/pretty/createRes.js'
-import geoip from 'geoip-lite'
+import { WebServiceClient } from "@maxmind/geoip2-node";
 import {ipVersion} from 'is-ip'
 import resolveIP from "../../../../backend/resolveIP.js";
 import {UAParser} from 'ua-parser-js'
 
 // Create express router instance
 const router = Router()
+// Create instance of MaxMind's WebServiceClient
+const gClient = new WebServiceClient('682804', 'G9218jtH01Z749DV', { host: "geolite.info" })
 
 // ----------------
 //  API Routes
@@ -48,29 +50,36 @@ router.get('/just-ip', (req, res) => {
 
 // Location Response
 // Responds with JSON data containing the location of the IP
-router.get('/location', (req, res) => {
-  let g = geoip.lookup(resolveIP(req))
+router.get('/location', async (req, res) => {
+  let g
+  try {
+    g = await gClient.city(resolveIP(req))
+  } catch (e) {
+    console.error(e)
+  }
   res.setHeader('content-type', 'text/json')
   res.send({
     municipality: {
-      city: g?.city,
-      region: g?.region,
-      country: g?.country,
-      humanReadable: `${g?.city}, ${g?.region}, ${g?.country}`
+      city: g?.city?.names.en,
+      // @ts-ignore
+      region: g?.subdivisions[0]?.names.en,
+      country: g?.country?.names.en,
+      // @ts-ignore
+      humanReadable: `${g?.city?.names.en}, ${g?.subdivisions[0]?.names.en}, ${g?.country?.names.en}`
     },
-    latitude: g?.ll[0],
-    longitude: g?.ll[1]
+    latitude: g?.location?.latitude,
+    longitude: g?.location?.longitude
   })
 })
 
 // Timezone Response
 // Gets the timezone and current date and time for a location derived from an IP.
-router.get('/timezone', (req, res) => {
-  let g = geoip.lookup(resolveIP(req))
+router.get('/timezone', async (req, res) => {
+  let g = await gClient.city(resolveIP(req))
   res.setHeader('content-type', 'text/json')
   res.send({
-    timezone: g?.timezone,
-    currentTime: new Date().toLocaleString('en-US', { timeZone: g?.timezone })
+    timezone: g?.location?.timeZone,
+    currentTime: new Date().toLocaleString('en-US', { timeZone: g?.location?.timeZone })
   })
 })
 
