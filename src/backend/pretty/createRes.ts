@@ -4,6 +4,10 @@
 // Import necessary libraries
 import { WebServiceClient } from "@maxmind/geoip2-node";
 import {ipVersion} from "is-ip";
+import {Configuration} from "../../configuration/config.js";
+
+// Grab configuration
+const config = new Configuration().getConfiguration()
 
 // Define and export main pretty response class
 export default class PrettyResponse {
@@ -51,7 +55,7 @@ export default class PrettyResponse {
     let i = this.ip
 
     // GeoIP Lookup specified IP
-    const gClient = new WebServiceClient('682804', 'G9218jtH01Z749DV', { host: "geolite.info" })
+    const gClient = new WebServiceClient(config.geoIP.accountID.toString(), config.geoIP.license, { host: "geolite.info" })
     let g
     try {
       g = await gClient.city(i)

@@ -46,8 +46,8 @@ export class Configuration {
     this.checkVariables()
 
     // Database Configuration
-    this.configuration.geoIP.accountID = parseInt(this.env.GEO_ACCOUNTID)
-    this.configuration.geoIP.license = this.env.GEO_LICENSE
+    this.configuration.geoIP.accountID = parseInt(<string>this.env.GEO_ACCOUNTID)
+    this.configuration.geoIP.license = <string>this.env.GEO_LICENSE
   }
 
   public getConfiguration(): IConfiguration {
