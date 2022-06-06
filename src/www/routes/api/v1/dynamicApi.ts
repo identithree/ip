@@ -7,7 +7,6 @@ import PrettyResponse from "../../../../backend/pretty/createRes.js";
 import {ipVersion, isIP} from 'is-ip'
 import { WebServiceClient } from "@maxmind/geoip2-node";
 import {Configuration} from "../../../../configuration/config.js";
-import resolveIP from "../../../../backend/resolveIP";
 
 // Define express router
 const router = Router()
