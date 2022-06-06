@@ -27,14 +27,14 @@ router.get('/', (req, res) => {
 
 // Pretty Response
 // Will make the response look good
-router.get('/pretty', (req, res) => {
+router.get('/pretty', async (req, res) => {
   res.setHeader('content-type', 'text/plain')
   // Generate new PrettyResponse
   let p = new PrettyResponse(resolveIP(req), true)
-  p.setUA(req.headers['user-agent']) // Set user agent
+  await p.setUA(req.headers['user-agent']) // Set user agent
 
   if (req.query.emoji === "false") {
-    p.useEmoji(false) // Disable emoji
+    await p.useEmoji(false) // Disable emoji
     res.send(p.getGeneratedString())
   } else {
     res.send(p.getGeneratedString())
@@ -57,6 +57,7 @@ router.get('/location', async (req, res) => {
   } catch (e) {
     console.error(e)
   }
+
   res.setHeader('content-type', 'text/json')
   res.send({
     municipality: {
@@ -75,7 +76,13 @@ router.get('/location', async (req, res) => {
 // Timezone Response
 // Gets the timezone and current date and time for a location derived from an IP.
 router.get('/timezone', async (req, res) => {
-  let g = await gClient.city(resolveIP(req))
+  let g
+  try {
+    g = await gClient.city(resolveIP(req))
+  } catch (e) {
+    console.error(e)
+  }
+
   res.setHeader('content-type', 'text/json')
   res.send({
     timezone: g?.location?.timeZone,

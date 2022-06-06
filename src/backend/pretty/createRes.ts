@@ -2,7 +2,7 @@
 // Written by Quinn Lane - https://quinnlane.dev
 
 // Import necessary libraries
-import geoip from 'geoip-lite'
+import { WebServiceClient } from "@maxmind/geoip2-node";
 import {ipVersion} from "is-ip";
 
 // Define and export main pretty response class
@@ -29,20 +29,20 @@ export default class PrettyResponse {
   }
 
   // Set the user agent
-  public setUA(ua: string | undefined) {
+  public async setUA(ua: string | undefined) {
     this.ua = ua
 
-    this.generateString() // Regenerate string with
+    await this.generateString() // Regenerate string with
   }
 
   // Whether to use emojis or not
-  public useEmoji(state: boolean) {
+  public async useEmoji(state: boolean) {
     this.emoji = state
-    this.generateString() // Regenerate string with or without emojis
+    await this.generateString() // Regenerate string with or without emojis
   }
 
   // Generate string
-  private generateString() {
+  private async generateString() {
     // Cleanup any previous attempts
     this.generatedString = []
 
@@ -51,7 +51,13 @@ export default class PrettyResponse {
     let i = this.ip
 
     // GeoIP Lookup specified IP
-    let g = geoip.lookup(i)
+    const gClient = new WebServiceClient('682804', 'G9218jtH01Z749DV', { host: "geolite.info" })
+    let g
+    try {
+      g = await gClient.city(i)
+    } catch (e) {
+      console.error(e)
+    }
 
     // Create temporary objects for info lines
     let ip = []
@@ -79,8 +85,9 @@ export default class PrettyResponse {
     // Add information to arrays
     ip.push(`IP: ${i}`)
     version.push(`Version: IPv${ipVersion(i)?.toString()}`)
-    location.push(`Location: ${g?.city}, ${g?.region}, ${g?.country} (${g?.ll.join(', ')})`)
-    timezone.push(`Timezone: ${g?.timezone} (${new Date().toLocaleString('en-US', { timeZone: g?.timezone })})`)
+    // @ts-ignore 
+    location.push(`Location: ${g?.city?.names.en}, ${g?.subdivisions[0]?.names.en}, ${g?.country?.names.en} (${g?.location?.latitude}, ${g?.location?.longitude})`)
+    timezone.push(`Timezone: ${g?.location?.timeZone} (${new Date().toLocaleString('en-US', { timeZone: g?.location?.timeZone })})`)
     userAgent.push(`User Agent: ${this.ua}`)
 
     // Push completed strings to main string array
