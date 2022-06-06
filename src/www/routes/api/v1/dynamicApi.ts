@@ -6,12 +6,15 @@ import {Router} from 'express'
 import PrettyResponse from "../../../../backend/pretty/createRes.js";
 import {ipVersion, isIP} from 'is-ip'
 import { WebServiceClient } from "@maxmind/geoip2-node";
+import {Configuration} from "../../../../configuration/config.js";
 import resolveIP from "../../../../backend/resolveIP";
 
 // Define express router
 const router = Router()
+// Grab configuration
+const config = new Configuration().getConfiguration()
 // Create instance of MaxMind's WebServiceClient
-const gClient = new WebServiceClient('682804', 'G9218jtH01Z749DV', { host: "geolite.info" })
+const gClient = new WebServiceClient(config.geoIP.accountID.toString(), config.geoIP.license, { host: "geolite.info" })
 
 // ----------------
 //  API Routes

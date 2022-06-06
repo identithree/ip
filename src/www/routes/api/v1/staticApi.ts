@@ -8,11 +8,14 @@ import { WebServiceClient } from "@maxmind/geoip2-node";
 import {ipVersion} from 'is-ip'
 import resolveIP from "../../../../backend/resolveIP.js";
 import {UAParser} from 'ua-parser-js'
+import {Configuration} from "../../../../configuration/config.js";
 
 // Create express router instance
 const router = Router()
+// Grab configuration
+const config = new Configuration().getConfiguration()
 // Create instance of MaxMind's WebServiceClient
-const gClient = new WebServiceClient('682804', 'G9218jtH01Z749DV', { host: "geolite.info" })
+const gClient = new WebServiceClient(config.geoIP.accountID.toString(), config.geoIP.license, { host: "geolite.info" })
 
 // ----------------
 //  API Routes
