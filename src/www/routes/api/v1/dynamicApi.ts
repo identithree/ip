@@ -37,6 +37,7 @@ router.get('/:ip/pretty', async (req, res) => {
       await p.useEmoji(false) // Disable emoji
       res.send(p.getGeneratedString())
     } else {
+      await p.generateString()
       res.send(p.getGeneratedString())
     }
   }

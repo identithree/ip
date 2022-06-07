@@ -46,7 +46,7 @@ export default class PrettyResponse {
   }
 
   // Generate string
-  private async generateString() {
+  public async generateString() {
     // Cleanup any previous attempts
     this.generatedString = []
 
