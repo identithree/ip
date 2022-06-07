@@ -1,0 +1,3 @@
+dependencies: yarn install
+build: yarn run build
+web: yarn run start

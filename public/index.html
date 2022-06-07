@@ -1,13 +1,73 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>IP Checker</title>
+    <!-- Simple.css -->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  </head>
+  <body>
+    <div id="main">
+      <!-- Main Header -->
+      <header>
+        <h1>Quinn's IP Checker</h1>
+      </header>
 
-<head>
-  <title>Express</title>
-  <link rel="stylesheet" href="/stylesheets/style.css">
-</head>
+      <!-- Basic API Interaction -->
+      <p id="ip_str">Your IP is <strong id="ip"></strong> and you live in <strong id="loc"></strong>. You are using <strong id="browser"></strong> to view this page.</p>
+    </div>
 
-<body>
-  <h1>Express</h1>
-  <p>Welcome to Express</p>
-</body>
+    <!-- Application Limitations Disclaimer -->
+    <div id="limitations">
+      <h2>Application Limitations</h2>
+      <p><strong>DISCLAIMER:</strong> There are many limitations to this application. You can find more about these at <a href="https://gitlab.com/Identithree/ip/-/wikis/limitations">the wiki</a>.</p>
+    </div>
 
+    <!-- Start of API section -->
+    <div id="api">
+      <h2>API</h2>
+      <p>This service has an API that can be interacted with from the <code>/api</code> route. Documentation can be found at <a href="https://gitlab.com/Identithree/ip/-/wikis/home">the project repository</a>.</p>
+    </div>
+
+    <!-- Source code section -->
+    <div id="source">
+      <h2>Source Code</h2>
+      <p>This application is licensed under the <a href="https://choosealicense.com/licenses/bsd-3-clause/">BSD 3-Clause "New" or "Revised" License</a> and it's source code is public on <a href="https://gitlab.com/Identithree/ip">GitLab</a>.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>GeoIP data provided by <a href="https://dev.maxmind.com/geoip/geolite2-free-geolocation-data">MaxMind</a></p>
+      <p>This server is running IP Checker v1.0.0. Copyright &copy; 2022 <a href="https://quinnlane.dev">Quinn Lane</a></p>
+    </footer>
+    <!-- Data fetcher script -->
+    <script>
+      // Define asynchronous function to get data from API
+      (async () => {
+        try {
+          // Get IP
+          const ipResponse = await fetch('/api/v1/just-ip', {
+            method: 'get'
+          })
+
+          // Get location data
+          const locResponse = await fetch('/api/v1/location', {
+            method: 'get'
+          })
+
+          // Get browser
+          const browserResponse = await fetch('/api/v1/useragent', {
+            method: 'get'
+          })
+
+          // Write data
+          document.getElementById('ip').innerHTML = await ipResponse.text()
+          document.getElementById('loc').innerHTML = JSON.parse(await locResponse.text()).municipality.humanReadable
+          document.getElementById('browser').innerHTML = JSON.parse(await browserResponse.text()).humanReadable.browser
+        } catch (e) {
+          // Return error if we cannot connect to API for whatever reason. Should not happen under normal circumstances.
+          document.getElementById("ip_str").innerHTML = "<strong>Error:</strong> For whatever reason, we could not make connection to API!"
+        }
+      })();
+    </script>
+  </body>
 </html>
