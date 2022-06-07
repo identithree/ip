@@ -40,6 +40,34 @@
       <p>Copyright &copy; 2022 <a href="https://quinnlane.dev">Quinn Lane</a></p>
     </footer>
     <!-- Data fetcher script -->
-    <script src="/js/getData.js" async defer></script>
+    <script>
+      // Define asynchronous function to get data from API
+      (async () => {
+        try {
+          // Get IP
+          const ipResponse = await fetch('/api/v1/just-ip', {
+            method: 'get'
+          })
+
+          // Get location data
+          const locResponse = await fetch('/api/v1/location', {
+            method: 'get'
+          })
+
+          // Get browser
+          const browserResponse = await fetch('/api/v1/useragent', {
+            method: 'get'
+          })
+
+          // Write data
+          document.getElementById('ip').innerHTML = await ipResponse.text()
+          document.getElementById('loc').innerHTML = JSON.parse(await locResponse.text()).municipality.humanReadable
+          document.getElementById('browser').innerHTML = JSON.parse(await browserResponse.text()).humanReadable.browser
+        } catch (e) {
+          // Return error if we cannot connect to API for whatever reason. Should not happen under normal circumstances.
+          document.getElementById("ip_str").innerHTML = "<strong>Error:</strong> For whatever reason, we could not make connection to API!"
+        }
+      })();
+    </script>
   </body>
 </html>

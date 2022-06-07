@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookie())
 
 // Specify static directory
-app.use(express.static(path.join(dirname, '../../public')))
+// app.use(express.static(path.join(dirname, '../../public')))
 
 // Routing
 app.use('/', indexRouter) // Public frontend (e.g. https://ip.id3.rest/)
